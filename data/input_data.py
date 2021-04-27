@@ -33,7 +33,7 @@ with open('taipei-attractions.json', mode='r', encoding='utf-8') as file:
     #transform into json type
     data=json.load(file)
     attractions_list=data['result']['results']
-    print(len(attractions_list))
+    #print(len(attractions_list))
     for attraction in attractions_list: #for迴圈必須在with裡面運作
         name = attraction["stitle"]
         category = attraction["CAT2"]

@@ -7,7 +7,7 @@ app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config['JSON_SORT_KEYS'] = False
 
 #將12筆資料放入建立好的list
-def get_database_data(cursor,page):
+def get_database_data(cursor,page=0):
     query_list = [] #list()
     start_index = page*12
     end_index = start_index + 12
@@ -67,7 +67,8 @@ def get_attration_info():
     keyword = request.args.get('keyword')
     if keyword :
 	    #limt {index},12 means get first 12 data ,start with {start_index}
-        cursor.execute(f"SELECT * FROM attractions WHERE name LIKE {keyword};")
+        cursor.execute(f"SELECT * FROM attractions WHERE name LIKE '%{keyword}%';")
+        print(f"SELECT * FROM attractions WHERE name LIKE '%{keyword}%';")
     else:
         cursor.execute(f"SELECT * FROM attractions;")
     max_number = cursor.rowcount    
@@ -89,10 +90,10 @@ def get_attration_info():
 
     return return_result
 
-@app.route("/api/attractions/<attractionId>", methods=["GET"])
+@app.route("/api/attraction/<attractionId>", methods=["GET"])
 def get_attration_info_by_id(attractionId):
     attractionId = int(attractionId)
-    connection = mysql.connector.connect(host='127.0.0.1',user='root',password='becky1qaz2wsx',database='TAdb')
+    connection = pymysql.connect(host='127.0.0.1',user='root',password='becky1qaz2wsx',database='TAdb')
     # 查詢資料庫
     cursor = connection.cursor()
     cursor.execute(f"SELECT * FROM attractions WHERE id={attractionId};")
