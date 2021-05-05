@@ -57,7 +57,7 @@ def get_attration_info():
     page = int(page) #保險起見轉換成int
     start_index = page*12
     connection = pymysql.connect(
-        host='localhost',
+        host='127.0.0.1',
         user='root',
         password='becky1qaz2wsx',
         database='TAdb'
@@ -126,4 +126,4 @@ def booking():
 def thankyou():
 	return render_template("thankyou.html")
 
-app.run(port=3000,host='localhost')
+app.run(port=3000,host='0.0.0.0')
