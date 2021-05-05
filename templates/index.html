@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UYTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>
+            taipei-day-trip-website
+        </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    </head>
+    <body>
+        <div class="header" id="header">
+            <div class="containerHeader">
+                <div class="logo">
+                    台北一日遊
+                </div>
+                <ul class="menu">
+                    <li><a href="#">預定行程</a></li>
+                    <li><a href="#">登入/註冊</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="hero_section">
+            <div class="containerHero">
+                <h1>輕鬆享受台北一日悠閒</h1>
+                <h2>探索每個角落，體驗城市的深度旅遊行程</h2>
+                <div class="container_search">
+                    <input type="search" placeholder="輸入景點名稱查詢" name="keyword" class="searchbox" id="keyword" value=''>
+                    <button type="submit" class="btn_searchbox" onclick="get_data()">
+                        <image class="search_icon" src="{{ url_for('static', filename='icons/icon_search.svg') }}"></image>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="contentBox" id="contentBox"></div>
+        <footer id="footer">
+            COPYRIGHT © 2021 台北一日遊
+        </footer>
+    </body>
+    <script type="text/javascript">
+        function fixed_header(){
+            const moveToNextAt = document.getElementById('header').clientHeight / 2;
+            if (window.scrollY > moveToNextAt) {
+                    header.classList.add('move');
+                } else {
+                    header.classList.remove('move');
+            }
+        }
+        window.addEventListener('scroll', fixed_header);
+        function get_data(page=0){
+            if (sessionStorage.getItem('loadingFinish')=='true'){
+                let keyword = document.getElementById('keyword').value;
+                if (keyword!=null){var url = "http://127.0.0.1:3000/api/attractions?page="+page.toString()+"&keyword="+keyword;}
+                else{var url = "http://127.0.0.1:3000/api/attractions?page="+page.toString();}
+                // XMLHttpRequest是js內建的物件，專門用來和伺服器做連線
+                let req=new XMLHttpRequest();
+                // 設定連線方法是什麼，使用get取得網頁/連線的網址
+                req.open("get",url);
+                // open只是做設定，下面才是送出
+                // 偵測連線狀態的結束
+                req.onload=function(){
+                    sessionStorage.setItem('loadingFinish',true);
+                    let nextPage = JSON.parse(this.response)['nextPage'];
+                    sessionStorage.setItem('nextPage', nextPage);
+                    let response=JSON.parse(this.response)["data"] //回傳值
+                    var contentBox = document.getElementById("contentBox");
+                    while (contentBox.firstChild){
+                        contentBox.removeChild(contentBox.lastChild);}
+                    if(response[0]!=null){
+                        for(i=0;i<response.length;i++){
+                            let name = response[i]["name"];
+                            let mrt = response[i]["mrt"];
+                            let category = response[i]["category"];
+                            let image = response[i]["images"][0];
+                            moreInfo(name, mrt, category, image);}}
+                    else{
+                        // var contentBox = document.getElementById("contentBox");
+                        // while (contentBox.firstChild){
+                        //     contentBox.removeChild(contentBox.lastChild);}
+                        let empty_message=document.createTextNode('No match result');
+                        contentBox.appendChild(empty_message);    
+                    }        
+                }
+                req.send();
+                sessionStorage.setItem('loadingFinish',false);
+            }
+        }
+        
+        function append_data(page=0){
+            if (sessionStorage.getItem('loadingFinish')=='true'){
+                let keyword = document.getElementById('keyword').value;
+                if (keyword!=null){var url = "http://127.0.0.1:3000/api/attractions?page="+page.toString()+"&keyword="+keyword;}
+                else{var url = "http://127.0.0.1:3000/api/attractions?page="+page.toString();}
+                // XMLHttpRequest是js內建的物件，專門用來和伺服器做連線
+                let req=new XMLHttpRequest();
+                // 設定連線方法是什麼，使用get取得網頁/連線的網址
+                req.open("get",url);
+                // open只是做設定，下面才是送出
+                // 偵測連線狀態的結束
+                req.onload=function(){
+                    sessionStorage.setItem('loadingFinish',true);
+                    let nextPage = JSON.parse(this.response)['nextPage'];
+                    sessionStorage.setItem('nextPage', nextPage);
+                    let response=JSON.parse(this.response)["data"] //回傳值
+                    if(response[0]!=null){
+                        for(i=0;i<response.length;i++){
+                            let name = response[i]["name"];
+                            let mrt = response[i]["mrt"];
+                            let category = response[i]["category"];
+                            let image = response[i]["images"][0];
+                            moreInfo(name, mrt, category, image);}}
+                    else{
+                        let empty_message=document.createTextNode('No match result');
+                        contentBox.appendChild(empty_message);    
+                    }        
+                }
+                req.send();
+                sessionStorage.setItem('loadingFinish',false);
+            }
+        }
+        
+        function moreInfo(name, mrt, category, image){
+            let attractionBox=document.createElement("div");
+            attractionBox.setAttribute("class", "attractionBox");
+
+            //attraction name
+            let attractionName=document.createElement("div");
+            let _name=document.createTextNode(name);
+            attractionName.appendChild(_name);
+            attractionName.setAttribute("class", "attractionName");
+
+            //tag mrt
+            let attractionTag=document.createElement("div");
+            let tagMrt=document.createElement("div");
+            let _mrt=document.createTextNode(mrt);
+            tagMrt.appendChild(_mrt);
+            attractionTag.appendChild(tagMrt);
+            tagMrt.setAttribute("class", "tagMrt");
+
+            //tag category
+
+            let tagCategory=document.createElement("div");
+            let _category=document.createTextNode(category);
+            tagCategory.appendChild(_category);
+            attractionTag.appendChild(tagCategory);
+            tagCategory.setAttribute("class", "tagCategory");
+            attractionTag.setAttribute("class", "attractionTag");
+
+            //image
+            let imageMask=document.createElement("div");
+            let imgBox=document.createElement("img");
+            imgBox.src=image;
+            imageMask.appendChild(imgBox);
+            imgBox.getAttribute("img");
+            imageMask.setAttribute("class", "imageMask");
+
+            //放進attractionBox後再放進contentBox
+            attractionBox.appendChild(imageMask);
+            attractionBox.appendChild(attractionName);
+            attractionBox.appendChild(attractionTag);
+            document.getElementById("contentBox").appendChild(attractionBox);
+        }
+
+        function fetchData() {
+            let triggerDistance = 0;
+            let footerNode = document.getElementById("footer");
+            let distance = footerNode.getBoundingClientRect().bottom - window.innerHeight;
+            if (distance == triggerDistance) {
+                let nextPage = sessionStorage.getItem('nextPage');
+                if(nextPage!='null'){append_data(page=nextPage)}
+            };
+            };
+        sessionStorage.setItem('loadingFinish',true);
+        window.addEventListener('scroll', fetchData);
+        get_data();
+    </script>
+</html>

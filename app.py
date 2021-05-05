@@ -68,7 +68,6 @@ def get_attration_info():
     if keyword :
 	    #limt {index},12 means get first 12 data ,start with {start_index}
         cursor.execute(f"SELECT * FROM attractions WHERE name LIKE '%{keyword}%';")
-        print(f"SELECT * FROM attractions WHERE name LIKE '%{keyword}%';")
     else:
         cursor.execute(f"SELECT * FROM attractions;")
     max_number = cursor.rowcount    
@@ -127,4 +126,4 @@ def booking():
 def thankyou():
 	return render_template("thankyou.html")
 
-app.run(port=3000,host='localhost')
+app.run(port=3000,host='127.0.0.1')
