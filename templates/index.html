@@ -27,7 +27,7 @@
                 <div class="container_search">
                     <input type="search" placeholder="輸入景點名稱查詢" name="keyword" class="searchbox" id="keyword" value=''>
                     <button type="submit" class="btn_searchbox" onclick="get_data()">
-                        <image class="search_icon" src="{{ url_for('static', filename='icons/icon_search.svg') }}"></image>
+                        <image class="search_icon" src="/static/icons/icon_search.svg"></image>
                     </button>
                 </div>
             </div>
@@ -50,8 +50,8 @@
         function get_data(page=0){
             if (sessionStorage.getItem('loadingFinish')=='true'){
                 let keyword = document.getElementById('keyword').value;
-                if (keyword!=null){var url = "http://0.0.0.0:3000/api/attractions?page="+page.toString()+"&keyword="+keyword;}
-                else{var url = "http://0.0.0.0:3000/api/attractions?page="+page.toString();}
+                if (keyword!=null){var url = "/api/attractions?page="+page.toString()+"&keyword="+keyword;}
+                else{var url = "/api/attractions?page="+page.toString();}
                 // XMLHttpRequest是js內建的物件，專門用來和伺服器做連線
                 let req=new XMLHttpRequest();
                 // 設定連線方法是什麼，使用get取得網頁/連線的網址
@@ -77,7 +77,7 @@
                         // var contentBox = document.getElementById("contentBox");
                         // while (contentBox.firstChild){
                         //     contentBox.removeChild(contentBox.lastChild);}
-                        let empty_message=document.createTextNode('No match result');
+                        let empty_message=document.createTextNode('查無結果');
                         contentBox.appendChild(empty_message);    
                     }        
                 }
@@ -89,8 +89,8 @@
         function append_data(page=0){
             if (sessionStorage.getItem('loadingFinish')=='true'){
                 let keyword = document.getElementById('keyword').value;
-                if (keyword!=null){var url = "http://0.0.0.0:3000/api/attractions?page="+page.toString()+"&keyword="+keyword;}
-                else{var url = "http://0.0.0.0:3000/api/attractions?page="+page.toString();}
+                if (keyword!=null){var url = "/api/attractions?page="+page.toString()+"&keyword="+keyword;}
+                else{var url = "/api/attractions?page="+page.toString();}
                 // XMLHttpRequest是js內建的物件，專門用來和伺服器做連線
                 let req=new XMLHttpRequest();
                 // 設定連線方法是什麼，使用get取得網頁/連線的網址
@@ -110,7 +110,7 @@
                             let image = response[i]["images"][0];
                             moreInfo(name, mrt, category, image);}}
                     else{
-                        let empty_message=document.createTextNode('No match result');
+                        let empty_message=document.createTextNode('查無結果');
                         contentBox.appendChild(empty_message);    
                     }        
                 }

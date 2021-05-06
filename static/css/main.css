@@ -58,17 +58,17 @@ blockquote, q {
 /* ----------------------fonts---------------------- */
 @font-face{
     font-family: "NotoSansCJKtc-Regular";
-    src: url("http://0.0.0.0:3000/static/fonts/NotoSansCJKtc-Regular.otf") format("opentype"),
-         url("http://0.0.0.0:3000/static/fonts/NotoSansCJKtc-Regular.ttf") format("truetype");
+    src: url("/static/fonts/NotoSansCJKtc-Regular.otf") format("opentype"),
+         url("/static/fonts/NotoSansCJKtc-Regular.ttf") format("truetype");
 }
 @font-face{
     font-family: "NotoSansCTKtc-Bold";
-    src: url("http://0.0.0.0:3000/static/fonts/NotoSansCJKtc-Bold.otf") format("opentype"),
-         url("http://0.0.0.0:3000/static/fonts/NotoSansCJKtc-Bold.ttf") format("truetype");
+    src: url("/static/fonts/NotoSansCJKtc-Bold.otf") format("opentype"),
+         url("/static/fonts/NotoSansCJKtc-Bold.ttf") format("truetype");
 }
 @font-face{
     font-family: "NotoSansCJKtc-Medium";
-    src: url("http://0.0.0.0:3000/static/fonts/NotoSansCJKtc-Medium.otf") format("opentype");
+    src: url("/static/fonts/NotoSansCJKtc-Medium.otf") format("opentype");
 }
 /* ----------------------fonts---------------------- */
 
@@ -120,7 +120,7 @@ a{
 
 .hero_section{
     height: 320px;
-    background-image: url("http://0.0.0.0:3000/static/img/welcome.png"),
+    background-image: url("/static/img/welcome.png"),
                       linear-gradient(135deg, #AADDEE 0%, #66AABB 100%);
     background-repeat: no-repeat,
                        no-repeat;
