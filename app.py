@@ -59,7 +59,7 @@ def get_attration_info():
     connection = pymysql.connect(
         host='127.0.0.1',
         user='root',
-        password='becky1qaz2wsx',
+        password='Becky1qaz@WSX',
         database='TAdb'
         )
     # 查詢資料庫
@@ -92,7 +92,7 @@ def get_attration_info():
 @app.route("/api/attraction/<attractionId>", methods=["GET"])
 def get_attration_info_by_id(attractionId):
     attractionId = int(attractionId)
-    connection = pymysql.connect(host='127.0.0.1',user='root',password='becky1qaz2wsx',database='TAdb')
+    connection = pymysql.connect(host='127.0.0.1',user='root',password='Becky1qaz@WSX',database='TAdb')
     # 查詢資料庫
     cursor = connection.cursor()
     cursor.execute(f"SELECT * FROM attractions WHERE id={attractionId};")
