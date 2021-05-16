@@ -59,7 +59,7 @@ def get_attration_info():
     connection = pymysql.connect(
         host='127.0.0.1',
         user='root',
-        password='becky1qaz2wsx',
+        password='Becky1qaz@WSX',
         database='TAdb'
         )
     # 查詢資料庫
@@ -68,7 +68,6 @@ def get_attration_info():
     if keyword :
 	    #limt {index},12 means get first 12 data ,start with {start_index}
         cursor.execute(f"SELECT * FROM attractions WHERE name LIKE '%{keyword}%';")
-        print(f"SELECT * FROM attractions WHERE name LIKE '%{keyword}%';")
     else:
         cursor.execute(f"SELECT * FROM attractions;")
     max_number = cursor.rowcount    
@@ -93,7 +92,7 @@ def get_attration_info():
 @app.route("/api/attraction/<attractionId>", methods=["GET"])
 def get_attration_info_by_id(attractionId):
     attractionId = int(attractionId)
-    connection = pymysql.connect(host='127.0.0.1',user='root',password='becky1qaz2wsx',database='TAdb')
+    connection = pymysql.connect(host='127.0.0.1',user='root',password='Becky1qaz@WSX',database='TAdb')
     # 查詢資料庫
     cursor = connection.cursor()
     cursor.execute(f"SELECT * FROM attractions WHERE id={attractionId};")
@@ -108,6 +107,11 @@ def get_attration_info_by_id(attractionId):
     return_result = jsonify(return_result)
 
     return return_result
+
+# @app.route("/attraction/<attractionId>", methods=["GET"])
+# def show_attraction_info_by_id(attractionId):
+#     return render_template("attraction.html")
+    
 
 
 
@@ -127,4 +131,4 @@ def booking():
 def thankyou():
 	return render_template("thankyou.html")
 
-app.run(port=3000,host='localhost')
+app.run(port=3000,host='0.0.0.0')

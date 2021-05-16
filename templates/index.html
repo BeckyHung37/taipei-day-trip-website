@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>
+            taipei-day-trip-website
+        </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    </head>
+    <body>
+        <div class="header" id="header">
+            <div class="containerHeader">
+                <div class="logo">
+                    台北一日遊
+                </div>
+                <ul class="menu">
+                    <li><a href="#">預定行程</a></li>
+                    <li><a href="#">登入/註冊</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="hero_section">
+            <div class="containerHero">
+                <h1>輕鬆享受台北一日悠閒</h1>
+                <h2>探索每個角落，體驗城市的深度旅遊行程</h2>
+                <div class="container_search">
+                    <input type="search" placeholder="輸入景點名稱查詢" name="keyword" class="searchbox" id="keyword" value=''>
+                    <button type="submit" class="btn_searchbox" onclick="get_data()">
+                        <image class="search_icon" src="/static/icons/icon_search.svg"></image>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="contentBox" id="contentBox"></div>
+        <footer id="footer">
+            COPYRIGHT © 2021 台北一日遊
+        </footer>
+    </body>
+    <script type="text/javascript" src="/static/js/index.js"></script>
+</html>

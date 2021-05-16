@@ -1,0 +1,305 @@
+/* taipei-day-trip-website css */
+
+/* --------------------reset css-------------------- */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+body {
+	line-height: 1;
+	color: black;
+	background: white;
+}
+ol, ul {
+	list-style: none;
+}
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: "";
+}
+blockquote, q {
+	quotes: "" "";
+}
+/* --------------------reset css-------------------- */
+
+/* 全域適用 */
+*{
+    box-sizing: border-box;
+}
+/* 全域適用 */
+
+/* ----------------------fonts---------------------- */
+@font-face{
+    font-family: "NotoSansCJKtc-Regular";
+    src: url("/static/fonts/NotoSansCJKtc-Regular.otf") format("opentype"),
+         url("/static/fonts/NotoSansCJKtc-Regular.ttf") format("truetype");
+}
+@font-face{
+    font-family: "NotoSansCTKtc-Bold";
+    src: url("/static/fonts/NotoSansCJKtc-Bold.otf") format("opentype"),
+         url("/static/fonts/NotoSansCJKtc-Bold.ttf") format("truetype");
+}
+@font-face{
+    font-family: "NotoSansCJKtc-Medium";
+    src: url("/static/fonts/NotoSansCJKtc-Medium.otf") format("opentype");
+}
+/* ----------------------fonts---------------------- */
+
+
+body{
+    font-size:16px;
+}
+.header{
+    background-color:#ffffff;
+    height: 54px;
+    z-index:1;
+    width: 100%;
+    position: sticky;
+    top:0;
+}
+.containerHeader{
+    padding-right: 10px;
+    padding-left: 10px;
+    /* width: 100%; */
+    max-width: 1200px;
+    height: auto;
+    margin: 0px auto;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+.logo{
+    font-family: "NotoSansCJKtc-Medium";
+    font-size: 30px;
+    color: #448899;
+    line-height: 54px;
+}
+li{
+    font-family: "NotoSansCJKtc-Regular";
+    font-size: 16px;
+    color: #666666;
+    list-style-type: none;
+    float: left;
+    padding-right: 8px;
+    padding-left: 8px;
+}
+a{
+    text-decoration: none;
+    color:#666666;
+    line-height: 54px;
+}
+
+.hero_section{
+    height: 320px;
+    background-image: url("/static/img/welcome.png"),
+                      linear-gradient(135deg, #AADDEE 0%, #66AABB 100%);
+    background-repeat: no-repeat,
+                       no-repeat;
+    /* 以上兩段也可以寫成這樣子：
+    background: url("./images/welcome 1.png") no-repeat,
+                linear-gradient(135deg, #AADDEE 0%, #66AABB 100%) no-repeat; */
+    background-position: 80% bottom; 
+    /* (第一個值是水平位置，第二個值是垂直位置。左上角是 0% 0%。右下角是 100% 100%。) */
+    background-color: linear-gradient(135deg, #AADDEE 0%, #66AABB 100%);
+    background-size:contain;
+}
+.containerHero{
+
+    padding-right: 10px;
+    padding-left: 10px;
+    /* width: 100%; */
+    max-width: 1200px;
+    height: auto;
+    margin: 0px auto;
+    position: relative;
+    z-index:0;
+}
+
+h1{
+    font-family: "NotoSansCJKtc-Medium";
+    font-size: 28px;
+    color: #f8f8f8;
+    text-align: left;
+    padding-top: 85px;
+    padding-bottom: 15px;
+    text-shadow: 0px 0px 30px #AABBCC;
+}
+h2{
+    font-family: "NotoSansCJKtc-Regular";
+    font-size: 16px;
+    color: #f8f8f8; 
+    padding-bottom: 25px;
+}
+.container_search{
+    height: 46px;
+    display: flex;
+}
+.searchbox{
+    width: 400px;
+    height: 46px;
+    background: #ffffff;
+    border:0 none;
+    cursor:text; /*鼠標型態*/
+    /* -webkit-border-radius: 5px; */
+    border-radius: 4px 0 0 4px;
+    padding: 0px;
+    padding-left: 15px;
+}
+input{
+    font-size: 16px;
+}
+.btn_searchbox{
+    width: 60px;
+    height: 46px;
+    background: #448899;
+    border: 0 none;
+    cursor:pointer;
+    border-radius: 0 4px 4px 0;
+    padding: 0px;
+}
+.search_icon{
+    width: 60%;
+    height: 60%;
+}
+.contentBox{
+    width: 1200px;
+    display: flex;
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+    padding-right: 10px;
+    padding-left: 10px;
+    height: auto;
+    position: relative;
+    /* background: cadetblue; */
+    margin: 0px auto;
+    margin-top: 55px;
+    margin-bottom: 55px;
+    /* margin:auto 和 margin:0 auto 是一樣的 */
+
+}
+
+.attractionBox{
+    margin-top: 15px;
+    width: 100%;
+    width:270px;
+    height: 242px;
+    border: 1px solid #E8E8E8;
+    border-radius: 5px;
+    background: #ffffff;
+}
+.attractionBox:not(:nth-child(4n)) {
+    margin-right: calc(4% / 3);
+}
+
+.imageMask{
+    width:100%;
+    height: 0;
+    padding-bottom: 60%;
+    overflow: hidden;
+    border: 1px solid #E8E8E8;
+    border-radius: 5px 5px 0 0;
+}
+img{
+    width: 100%;
+}
+.attractionName{
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    font-family: NotoSansCTKtc-Bold;
+    color: #757575;
+    line-height: 40px;
+    padding-left: 10px;
+}
+.attractionTag{
+    width:100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 40px;
+}
+.tagMrt{
+    font-size: 16px;
+    font-family: NotoSansCTKtc-Regular;
+    color: #757575;
+}
+.tagCategory{
+    font-size: 16px;
+    font-family: NotoSansCTKtc-Regular;
+    color: #757575;
+}
+
+/* 偽元素 */
+::placeholder{ 
+    font-size: 16px;
+    line-height: 46px;
+}
+
+footer{
+    height: 104px;
+    width:100%;
+    background: #757575;
+    color: #FFFFFF;
+    font-size: 16px;
+    text-align: center;
+    line-height: 104px;
+}
+
+/* ----------------------rwd media query---------------------- */
+
+/* media query媒體查詢 */
+@media only screen and (min-width: 500px) and (max-width: 1200px){
+    .contentBox{width: 100%;flex-direction: row;}
+    .attractionBox{width:45%;height: auto;}
+}
+
+@media only screen and (max-width:500px){
+    .hero_section{
+        background-size: 80%, 100%;
+        background-position: 100% bottom; 
+    }
+    .container{
+        max-width: 500px;
+    }
+    .searchbox{
+        width:230px;
+    }
+    .contentBox{
+        width: 100%;flex-direction: row;
+    }
+    .attractionBox{
+        width:100%;height: auto;
+    }
+}
+
+
+/* ----------------------rwd media query---------------------- */
