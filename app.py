@@ -108,6 +108,11 @@ def get_attration_info_by_id(attractionId):
 
     return return_result
 
+# @app.route("/attraction/<attractionId>", methods=["GET"])
+# def show_attraction_info_by_id(attractionId):
+#     return render_template("attraction.html")
+    
+
 
 
 

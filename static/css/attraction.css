@@ -1,0 +1,414 @@
+/* attraction css */
+/* --------------------reset css-------------------- */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+body {
+	line-height: 1;
+	color: black;
+	background: white;
+}
+ol, ul {
+	list-style: none;
+}
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: "";
+}
+blockquote, q {
+	quotes: "" "";
+}
+/* --------------------reset css-------------------- */
+
+/* 全域變數  */
+*{
+    box-sizing: border-box;
+}
+/* 全域變數  */
+
+/* ----------------------fonts---------------------- */
+@font-face{
+    font-family: "NotoSansCJKtc-Regular";
+    src: url("/static/fonts/NotoSansCJKtc-Regular.otf") format("opentype"),
+         url("/static/fonts/NotoSansCJKtc-Regular.ttf") format("truetype");
+}
+@font-face{
+    font-family: "NotoSansCTKtc-Bold";
+    src: url("/static/fonts/NotoSansCJKtc-Bold.otf") format("opentype"),
+         url("/static/fonts/NotoSansCJKtc-Bold.ttf") format("truetype");
+}
+@font-face{
+    font-family: "NotoSansCJKtc-Medium";
+    src: url("/static/fonts/NotoSansCJKtc-Medium.otf") format("opentype");
+}
+/* ----------------------fonts---------------------- */
+body{
+    font-size: 16px;
+}
+.header{
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #E8E8E8;
+    height: 54px;
+    width: 100%;
+    position: sticky;
+    top:0;
+    z-index: 1;
+}
+.containerHeader{
+    max-width: 1200px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: auto;
+    display: flex;
+    margin: 0px auto;
+    display: flex;
+    justify-content: space-between;
+}
+.logo{
+    font-family: "NotoSansCJKtc-Medium";
+    font-size: 30px;
+    color: #448899;
+    line-height: 54px;
+}
+li{
+    font-family: "NotoSansCJKtc-Regular";
+    font-size: 16px;
+    color: #666666;
+    list-style-type: none;
+    float: left;
+    padding-right: 8px;
+    padding-left: 8px;
+}
+a{
+    text-decoration: none;
+    color: #666666;
+    line-height: 54px;
+}
+.attractionInfoBox{
+    max-width: 1200px;
+    height: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    /* background-color:lightsteelblue; */
+    margin: 0 auto;
+    /* margin-top: 37px; */
+    padding-top: 37px;
+    padding-bottom: 37px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #E8E8E8;
+}
+/* ----------------------------imageGallery---------------------------- */
+.imageGallery{
+    width: 540px;
+    height: 406px;
+    position: relative;
+    margin: auto;
+    border-radius: 5px;
+}
+.mySlides{
+    display: none;
+    width:100%;
+    /* width: 540px;
+    height: 406px; */
+    /* overflow: hidden; */
+    border-radius: 5px;
+}
+img{
+    position: absolute;
+    object-fit: cover;
+    object-position: center center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+}
+
+.icn{
+    width: 100%;
+}
+/* 下一張 & 上一張 按鈕 */
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+
+/* 定位 "下一張" 按鈕靠右 */
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+    opacity: 1.0;
+}
+
+/* 底部小原點 */
+
+.dot {
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+    margin: 0 6px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+    background-color: #000;
+    border: 1px solid #ffffff;
+}
+.dotGroup{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    /* text-align:center */
+}
+/* ----------------------------imageGallery---------------------------- */
+.attractionInfo{
+    width: 600px;
+    height: 406px;
+    margin-left: 30px;
+    /* background-color: mistyrose; */
+}
+.attractionName{
+    width: 100%;
+    height: 33px;
+    font-size: 24px;
+    color:#666666;
+    font-family: "NotoSansCTKtc-Bold";
+}
+.attractionTag{
+    width: 100%;
+    height: 22px;
+    font-size: 16px;
+    color:#666666;
+    font-family: "NotoSansCTKtc-Regular";
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+.tagCategory{
+    margin-right: 5px;
+}
+.tagMrt{
+    margin-left: 5px;
+}
+.attractionOrderBox{
+    background-color: #E8E8E8;
+    border-radius: 5px;
+    width: 100%;
+    height: auto;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+.titleFirst{
+    font-size: 16px;
+    color: #666666;
+    height: 22px;
+    width: 100%;
+    font-family: "NotoSansCTKtc-Bold";
+}
+.title{
+    font-size: 16px;
+    color: #666666;
+    height: 22px;
+    font-family: "NotoSansCTKtc-Bold";
+    margin-right: 5px;
+}
+.titleValue{
+    font-size: 16px;
+    color:#666666;
+    font-family: "NotoSansCTKtc-Regular";
+    width: auto;
+    height: 22px;
+    margin-top: 15px;
+}
+.titleBox{
+    height: 35px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+.datePicker{
+    border:none;
+    width: 193px;
+    height: 35px;
+    cursor: pointer; 
+}
+.btnOrder{
+    font-size: 19px;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: "NotoSansCTKtc-Regular";
+    background-color: #448899;
+    border:none;
+    width: 154px;
+    height: 36px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    cursor: pointer; 
+}
+.radioBtnBox{
+    display: flex;
+    align-items: center;
+    margin-right: 18px;
+    position: relative;
+    line-height: 22px;
+}
+
+.radioBtnBox span{
+    font-size: 16px;
+    color:#666666;
+    font-family: "NotoSansCTKtc-Regular";
+}
+input[type="radio"] {
+    width: 22px;
+    height: 22px;
+    opacity: 0;
+    margin:0px 4px 0px 0px;
+}
+
+.radioBtnBox label{
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color:#FFFFFF;
+    cursor: pointer; 
+}
+.radioBtnBox input:checked+label { 
+    background-color:#448899;
+    border: 2px solid #FFFFFF;
+}
+.titleFee{
+    font-size: 16px;
+    color:#666666;
+    font-family: "NotoSansCTKtc-Regular";
+    width: auto;
+    height: 22px;
+}
+.attractionContentBox{
+    max-width: 1200px;
+    height: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    /* background-color:lightsteelblue; */
+    margin: 0 auto;
+    /* margin-top: 37px; */
+    padding-top: 37px;
+    padding-bottom: 37px;
+    /* display: flex;
+    justify-content: space-between; */
+    border-bottom: 1px solid #E8E8E8;
+
+}
+.attractionDescription{
+    width: 100%;
+    height: auto;
+    font-size: 16px;
+    color:#666666;
+    font-family: "NotoSansCTKtc-Regular";
+    line-height: 23px;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+    text-align:justify;
+}
+footer{
+    height: 104px;
+    width:100%;
+    background: #757575;
+    color: #FFFFFF;
+    font-size: 16px;
+    text-align: center;
+    line-height: 104px;
+}
+.attractionAddress{
+    width: 100%;
+    height: auto;
+    font-size: 16px;
+    color:#666666;
+    font-family: "NotoSansCTKtc-Regular";
+    line-height: 23px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-align:justify;
+    margin-bottom: 40px;
+}
+.attractionTransport{
+    width: 100%;
+    height: auto;
+    font-size: 16px;
+    color:#666666;
+    font-family: "NotoSansCTKtc-Regular";
+    line-height: 23px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-align:justify;
+    margin-bottom: 120px;
+}
+
+/* ----------------------rwd media query---------------------- */
+@media only screen and (min-width:500px) and (max-width:1200px){
+
+}
+@media only screen and (max-width:500px){
+    .attractionInfoBox{
+        flex-direction: column;
+    }
+    .imageGallery{
+        width:100%;height: auto;
+    }
+    .attractionInfo{
+        width:100%;height: auto;
+        margin-top: 20px;
+        margin-left: 0px;
+    }
+
+}

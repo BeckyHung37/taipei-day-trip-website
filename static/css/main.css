@@ -81,10 +81,8 @@ body{
     height: 54px;
     z-index:1;
     width: 100%;
-}
-.move{
-    position: fixed;
-    top:0px;
+    position: sticky;
+    top:0;
 }
 .containerHeader{
     padding-right: 10px;
@@ -136,7 +134,7 @@ a{
 
     padding-right: 10px;
     padding-left: 10px;
-    width: 100%;
+    /* width: 100%; */
     max-width: 1200px;
     height: auto;
     margin: 0px auto;
@@ -226,7 +224,7 @@ input{
     padding-bottom: 60%;
     overflow: hidden;
     border: 1px solid #E8E8E8;
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
 }
 img{
     width: 100%;
