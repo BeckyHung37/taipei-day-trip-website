@@ -5,6 +5,7 @@ app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config['JSON_SORT_KEYS'] = False
+app.config['SECRET_KEY'] = 'becky'
 
 #將12筆資料放入建立好的list
 def get_database_data(cursor,page=0):
@@ -63,7 +64,7 @@ def get_attration_info():
         database='TAdb'
         )
     # 查詢資料庫
-    cursor = connection.cursor()
+    cursor = connection.cursor() 
     keyword = request.args.get('keyword')
     if keyword :
 	    #limt {index},12 means get first 12 data ,start with {start_index}
@@ -108,12 +109,85 @@ def get_attration_info_by_id(attractionId):
 
     return return_result
 
-# @app.route("/attraction/<attractionId>", methods=["GET"])
-# def show_attraction_info_by_id(attractionId):
-#     return render_template("attraction.html")
+# @app.route("/api/user/", methods=["GET"])
+# @app.route("/api/user/error", methods=["GET"])
+@app.route("/api/user", methods=['GET','POST','PATCH','DELETE'])
+def user_method():
+    if request.method == 'POST':
+        try:    
+            name = request.form['name']
+            email = request.form['email']
+            pwd = request.form['pwd']
+            connection = pymysql.connect(
+                host='127.0.0.1',
+                user='root',
+                password='Becky1qaz@WSX',
+                database='TAdb'
+            )
+            cursor = connection.cursor()
+            email_check = cursor.execute(f"SELECT * FROM users WHERE email LIKE '%{email}%';")
+            if email_check:
+                result = {'error': True,'message' :'此信箱已被他人註冊，請重新輸入'} #傳過去會是json字串
+                return jsonify(result),400
+            else:
+                cursor.execute(f"INSERT INTO users(name, email, password) VALUES ('{name}', '{email}', '{pwd}');")
+                connection.commit()
+                result = {'ok': True }
+                return jsonify(result),200
+        except:
+            result = {'error': True,'message' :'伺服器錯誤'} #傳過去會是json字串
+            return jsonify(result),500
+
+    elif request.method == 'GET':
+        signin_email = session['user_signin']
+        if signin_email:
+            connection = pymysql.connect(
+                    host='127.0.0.1',
+                    user='root',
+                    password='Becky1qaz@WSX',
+                    database='TAdb'
+                )
+            cursor = connection.cursor()
+            cursor.execute(f"SELECT * FROM users WHERE email ='{signin_email}';")
+            filter_result = cursor.fetchone()
+            print(filter_result)
+            user_id = filter_result[0]
+            user_name = filter_result[1]
+            result = {'data':{"id": user_id,"name": user_name,"email":signin_email}}
+            return jsonify(result),200
+        else:
+            result = {'data':None}
+            return  jsonify(result),200
+
+
+    elif request.method == 'PATCH':
+        try:    
+            email = request.form['email']
+            pwd = request.form['pwd']
+            connection = pymysql.connect(
+                host='127.0.0.1',
+                user='root',
+                password='Becky1qaz@WSX',
+                database='TAdb'
+            )
+            cursor = connection.cursor()
+            user_check = cursor.execute(f"SELECT * FROM users WHERE email ='{email}' AND password ='{pwd}';")
+            if user_check:
+                session["user_signin"]=email
+                result = {'ok': True} #傳過去會是json字串
+                return jsonify(result),200
+            else:
+                result = {'error': True,'message' :'登入失敗，帳號或密碼錯誤或其他原因'}
+                return jsonify(result),400
+        except Exception as e:
+            print(e)
+            result = {'error': True,'message' :'伺服器錯誤'} #傳過去會是json字串
+            return jsonify(result),500
     
-
-
+    elif request.method == 'DELETE':
+        session['user_signin'] = None
+        result = {"ok": True}
+        return jsonify(result),200
 
 
 
