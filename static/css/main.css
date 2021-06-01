@@ -157,6 +157,120 @@ h2{
     color: #f8f8f8; 
     padding-bottom: 25px;
 }
+.dialogSignin{
+    position: fixed;
+    top:80px;
+    left: 50%;
+    transform: translate(-170px, 0px);
+    width: 340px;
+    /* height: 275px; */
+    background: #FFFFFF;
+    box-shadow: 0px 4px 60px #AAAAAA;
+    border-radius: 6px;
+    z-index: 2;
+    /* 為了讓input框置中(margin: 0 auto;) */
+    text-align: center;
+    display: none;
+}
+.dialogSignup{
+    position: fixed;
+    top:80px;
+    left: 50%;
+    transform: translate(-170px, 0px);
+    width: 340px;
+    /* height: 332px; */
+    background: #FFFFFF;
+    box-shadow: 0px 4px 60px #AAAAAA;
+    border-radius: 6px;
+    z-index: 2;
+    /* 為了讓input框置中(margin: 0 auto;) */
+    text-align: center;
+    display: none;
+}
+.dialogTop{
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(270deg, #337788 0%, #66AABB 100%);
+    border-radius:6px 6px 0 0;
+}
+h3{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-family: "NotoSansCJKtc-Medium";
+    font-size: 24px;
+    line-height: 24px;
+    text-align: center;
+    color: #666;
+}
+.icn_close{
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 27px;
+    right: 16px;
+    cursor: pointer;
+}
+.signInInput{
+    width: 310px;
+    height: 47px;
+    margin: 0 auto;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    cursor: text;
+    padding-left: 15px;
+    margin-bottom: 10px;
+}
+.btn_signIn{
+    width: 310px;
+    height: 47px;
+    color: #ffffff;
+    font-family: "NotoSansCJKtc-Regular";
+    font-size: 19px;
+    text-align: center;
+    line-height: 47px;
+    background: #448899;
+    border-radius: 5px;
+    border: 0 none;
+    cursor:pointer;
+    margin-bottom: 15px;
+}
+.btn_singInText{
+    font-size: 16px;
+    font-family: "NotoSansCJKtc-Regular";
+    /* display: flex;
+    align-items: center; */
+    text-align: center;
+    color: #666666;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.errorMsg{
+    font-size: 12px;
+    font-family: "NotoSansCJKtc-Regular";
+    text-align: center;
+    color: red;
+    margin-bottom: 15px;
+    display: none;
+}
+.successedMsg{
+    font-size: 12px;
+    font-family: "NotoSansCJKtc-Regular";
+    text-align: center;
+    color:green;
+    margin-bottom: 15px;
+    display: none;
+}
+.mask{
+    position:fixed;
+    top     : 0;
+    left    : 0;
+    bottom  : 0;
+    right   : 0;
+    background:#000;
+    opacity:30%;
+    z-index: 1;
+    display: none;
+}
 .container_search{
     height: 46px;
     display: flex;
@@ -298,6 +412,22 @@ footer{
     }
     .attractionBox{
         width:100%;height: auto;
+    }
+    .dialogSignin{
+        width:90%; height: auto;
+        left: 5%;
+        transform: translate(0px, 0px);
+    }
+    .signInInput{
+        width: 90%;
+    }
+    .btn_signIn{
+        width: 90%;
+    }
+    .dialogSignup{
+        width:90%; height: auto;
+        left: 5%;
+        transform: translate(0px, 0px);
     }
 }
 
