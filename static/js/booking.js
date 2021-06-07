@@ -1,11 +1,11 @@
 // ---------- About dialog ----------
 var dialog;
-console.log(sessionStorage.getItem('user_name'))
 window.onload=function(){
     dialogSignin=document.getElementById('dialogSignin');
     dialogSignup=document.getElementById('dialogSignup');
     mask=document.getElementById('mask');
     session_check();
+    booking_check();
 };
 function showMask(){
     mask.style.display="block";
@@ -40,7 +40,11 @@ function cleanInput(){
     document.getElementById("signUpEmail").value = "";
     document.getElementById("signUpPwd").value = "";
 }
-// ---------- About dialog ----------
+
+
+
+
+// ---------- About dialog --------------------------------------------------------------------------------
 function user_signup(){
     let req = new XMLHttpRequest; //跟flask連線用的物件（起request用）
     let formData = new FormData();//傳遞資料用
@@ -99,8 +103,10 @@ function session_check(){
         if(res['data']!=null){
             document.getElementById("menuSignIn").innerHTML = '登出';
             document.getElementById("menuSignIn").onclick = user_signout;
-            document.getElementById("menuBooking").onclick = redirect_to_booking;
+            document.getElementById("menuBooking").onclick = parent.location.reload;
             console.log('why');
+        }else{
+            window.location.href = '/'
         }
     }
     req.send();
@@ -119,147 +125,131 @@ function user_signout(){
     }
     req.send();
 }
-function get_data(page=0){
-    if (sessionStorage.getItem('loadingFinish')=='true'){
-        let keyword = document.getElementById('keyword').value;
-        if (keyword!=null){var url = "/api/attractions?page="+page.toString()+"&keyword="+keyword;}
-        else{var url = "/api/attractions?page="+page.toString();}
-        // XMLHttpRequest是js內建的物件，專門用來和伺服器做連線
-        let req=new XMLHttpRequest();
-        // 設定連線方法是什麼，使用get取得網頁/連線的網址
-        req.open("get",url);
-        // open只是做設定，下面才是送出
-        // 偵測連線狀態的結束
-        req.onload=function(){
-            sessionStorage.setItem('loadingFinish',true);
-            let nextPage = JSON.parse(this.response)['nextPage'];
-            sessionStorage.setItem('nextPage', nextPage);
-            let response=JSON.parse(this.response)["data"] //回傳值
-            var contentBox = document.getElementById("contentBox");
-            while (contentBox.firstChild){
-                contentBox.removeChild(contentBox.lastChild);}
-            if(response[0]!=null){
-                for(i=0;i<response.length;i++){
-                    let name = response[i]["name"];
-                    let mrt = response[i]["mrt"];
-                    let category = response[i]["category"];
-                    let image = response[i]["images"][0];
-                    let ID = response[i]["id"];
-                    moreInfo(name, mrt, category, image, ID);}}
-            else{
-                // var contentBox = document.getElementById("contentBox");
-                // while (contentBox.firstChild){
-                //     contentBox.removeChild(contentBox.lastChild);}
-                let empty_message=document.createTextNode('查無結果');
-                contentBox.appendChild(empty_message);    
-            }        
-        }
-        req.send();
-        sessionStorage.setItem('loadingFinish',false);
+
+
+// ---------- About dialog --------------------------------------------------------------------------------
+
+
+
+
+fetch("/api/booking", {method:"GET"}).then(function(response) {
+    return response.json()
+}).then(function (data){
+    console.log(document.cookie);
+    let image =data["data"]["attraction"]["image"]
+    let pageName = data["data"]["attraction"]["name"]
+    let pageAddress = data["data"]["attraction"]["address"]
+    let pageDate = data["date"]
+    let pageTime = data["time"]
+    let pagePrice = data["price"]
+    let username = sessionStorage.getItem('user_name');
+    // console.log(image)
+    // console.log(pageName)
+    // console.log(pageAddress)
+    // console.log(pageDate)
+    // console.log(pageTime)
+    // console.log(pagePrice)
+    if (pageTime == 'afternoon'){
+        pageTime = '下午4點到晚上7點';
+    } 
+    else{
+        pageTime = '早上9點到中午12點';
     }
-}
+    appendData(image,pageName, pageAddress,pageDate,pageTime,pagePrice,username);
+    // appendImages(image);
+})
 
-function append_data(page=0){
-    if (sessionStorage.getItem('loadingFinish')=='true'){
-        let keyword = document.getElementById('keyword').value;
-        if (keyword!=null){var url = "/api/attractions?page="+page.toString()+"&keyword="+keyword;}
-        else{var url = "/api/attractions?page="+page.toString();}
-        // XMLHttpRequest是js內建的物件，專門用來和伺服器做連線
-        let req=new XMLHttpRequest();
-        // 設定連線方法是什麼，使用get取得網頁/連線的網址
-        req.open("get",url);
-        // open只是做設定，下面才是送出
-        // 偵測連線狀態的結束
-        req.onload=function(){
-            sessionStorage.setItem('loadingFinish',true);
-            let nextPage = JSON.parse(this.response)['nextPage'];
-            sessionStorage.setItem('nextPage', nextPage);
-            let response=JSON.parse(this.response)["data"] //回傳值
-            if(response[0]!=null){
-                for(i=0;i<response.length;i++){
-                    let name = response[i]["name"];
-                    let mrt = response[i]["mrt"];
-                    let category = response[i]["category"];
-                    let image = response[i]["images"][0];
-                    let ID = response[i]["id"];
-                    moreInfo(name, mrt, category, image, ID);}}
-            else{
-                let empty_message=document.createTextNode('查無結果');
-                contentBox.appendChild(empty_message);    
-            }        
-        }
-        req.send();
-        sessionStorage.setItem('loadingFinish',false);
-    }
-}
-
-function moreInfo(name, mrt, category, image, ID){
-    //-------------------- for attraction.html ---------------------
-    let getSpotId="attraction/" + ID;
-    let attractionBox=document.createElement("a");
-    attractionBox.setAttribute("href",getSpotId);
-    //-------------------- for attraction.html ---------------------
-
-    attractionBox.setAttribute("class", "attractionBox");
+function appendData(image,pageName, pageAddress,pageDate,pageTime,pagePrice,username){
+    //image
+    let attractionImage = document.createElement("div");
+    let img = document.createElement("img");
+    img.src=image;
+    attractionImage.appendChild(img);
+    img.setAttribute('class','imgSelf');
+    attractionImage.setAttribute('class','imgBox');
+    document.getElementById("imgBox").appendChild(attractionImage);
 
     //attraction name
     let attractionName=document.createElement("div");
-    let _name=document.createTextNode(name);
+    let _name=document.createTextNode(pageName);
     attractionName.appendChild(_name);
-    attractionName.setAttribute("class", "attractionName");
+    attractionName.setAttribute('class','attractionTitle')
 
-    //tag mrt
-    let attractionTag=document.createElement("div");
-    let tagMrt=document.createElement("div");
-    let _mrt=document.createTextNode(mrt);
-    tagMrt.appendChild(_mrt);
-    attractionTag.appendChild(tagMrt);
-    tagMrt.setAttribute("class", "tagMrt");
+    //**replace to attractionNameBox
+    let oldAttractionName = document.getElementById("attractionNameId");
+    let attractionNameBox = oldAttractionName.parentNode;
+    attractionNameBox.replaceChild(attractionName, oldAttractionName);
 
-    //tag category
+    //attraction address
+    let attractionAddress=document.createElement("div");
+    let _address=document.createTextNode(pageAddress);
+    attractionAddress.appendChild(_address);
+    attractionAddress.setAttribute("class","content")
+    console.log(attractionAddress);
 
-    let tagCategory=document.createElement("div");
-    let _category=document.createTextNode(category);
-    tagCategory.appendChild(_category);
-    attractionTag.appendChild(tagCategory);
-    tagCategory.setAttribute("class", "tagCategory");
-    attractionTag.setAttribute("class", "attractionTag");
+    //schedule date
+    let scheduleDate=document.createElement("div");
+    let _date=document.createTextNode(pageDate);
+    scheduleDate.appendChild(_date);
+    scheduleDate.setAttribute('class','content')
+    console.log(scheduleDate);
 
-    //image
-    let imageMask=document.createElement("div");
-    let imgBox=document.createElement("img");
-    imgBox.src=image;
-    imageMask.appendChild(imgBox);
-    imgBox.getAttribute("img");
-    imageMask.setAttribute("class", "imageMask");
+    //schedule time
+    let scheduleTime=document.createElement("div");
+    let _time=document.createTextNode(pageTime);
+    scheduleTime.appendChild(_time);
+    scheduleTime.setAttribute('class','content')
 
-    //放進attractionBox後再放進contentBox
-    attractionBox.appendChild(imageMask);
-    attractionBox.appendChild(attractionName);
-    attractionBox.appendChild(attractionTag);
-    document.getElementById("contentBox").appendChild(attractionBox);
+    //schedule price
+    let schedulePrice=document.createElement("div");
+    let _price=document.createTextNode(pagePrice);
+    schedulePrice.appendChild(_price);
+    schedulePrice.setAttribute('class','content')
 
+    // schedule total price
+    let scheduleTotalPrice=document.createElement("div");
+    let _totalPrice=document.createTextNode(pagePrice);
+    scheduleTotalPrice.appendChild(_totalPrice);
+    scheduleTotalPrice.setAttribute('class','infoSubtitle')
+    
+    //**replace to infoBox
+    let oldAttractionAddress=document.getElementById("attractionAddress");
+    let infoBox1 = oldAttractionAddress.parentNode;
+    infoBox1.replaceChild(attractionAddress,oldAttractionAddress);
+
+    let oldScheduleDate=document.getElementById("scheduleDate");
+    let infoBox2 = oldScheduleDate.parentNode;
+    infoBox2.replaceChild(scheduleDate,oldScheduleDate);
+
+    let oldScheduleTime=document.getElementById("scheduleTime");
+    let infoBox3 = oldScheduleTime.parentNode;
+    infoBox3.replaceChild(scheduleTime,oldScheduleTime);
+
+    let oldSchedulePrice=document.getElementById("schedulePrice")
+    let infoBox4 = oldSchedulePrice.parentNode;
+    infoBox4.replaceChild(schedulePrice,oldSchedulePrice);
+
+    let oldScheduleTotalPrice=document.getElementById("scheduleTotalPrice")
+    let infoBox5 = oldScheduleTotalPrice.parentNode;
+    infoBox5.replaceChild(scheduleTotalPrice,oldScheduleTotalPrice);
+
+    //username
+    let userName=document.createElement("div");
+    let _username=document.createTextNode(username);
+    userName.appendChild(_username);
+    userName.setAttribute('class','infoTitle')
+
+    let oldUserName = document.getElementById("userName");
+    let titleBox = oldUserName.parentNode;
+    titleBox.replaceChild(userName,oldUserName);
 }
-
-function fetchData() {
-    let triggerDistance = 0;
-    let footerNode = document.getElementById("footer");
-    let distance = footerNode.getBoundingClientRect().bottom - window.innerHeight;
-    if (distance == triggerDistance) {
-        let nextPage = sessionStorage.getItem('nextPage');
-        if(nextPage!='null'){append_data(page=nextPage)}
-    };
-};
-function redirect_to_booking(){
-    window.location.href = '/booking'
-};
 function booking_check(){
     let req = new XMLHttpRequest; //跟flask連線用的物件（起request用）
     req.open('get','/api/booking',true); //前端打request到後端
     req.onload = function(){ //接收到後端傳來的訊息，才會onload
         let res = JSON.parse(req.response);
         console.log(res['data']);
-        if(res['data']==''){
+        if(res['data']==null){
             booking_delete()
         }
     }
@@ -279,7 +269,6 @@ function booking_delete(){
     req.onload = function(){ //接收到後端傳來的訊息，才會onload
         let res = JSON.parse(req.response);
         if(res['error']!=true){
-            alert('hiiiii');
             bookingInfo.remove();
             titleUserInfo.remove();
             userInfo.remove();
@@ -297,9 +286,3 @@ function booking_delete(){
     }
     req.send();
 };
-
-
-sessionStorage.setItem('loadingFinish',true);
-window.addEventListener('scroll', fetchData);
-get_data();
-

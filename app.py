@@ -171,9 +171,12 @@ def user_method():
                 database='TAdb'
             )
             cursor = connection.cursor()
-            user_check = cursor.execute(f"SELECT * FROM users WHERE email ='{email}' AND password ='{pwd}';")
+            cursor.execute(f"SELECT * FROM users WHERE email ='{email}' AND password ='{pwd}';")
+            user_check = cursor.fetchone() #用來拿username
             if user_check:
                 session["user_signin"]=email
+                session["user_name"]=user_check[1]
+                print('login_user',user_check[1])
                 result = {'ok': True} #傳過去會是json字串
                 return jsonify(result),200
             else:
@@ -188,6 +191,87 @@ def user_method():
         session['user_signin'] = None
         result = {"ok": True}
         return jsonify(result),200
+
+@app.route("/api/booking", methods=['GET','POST','DELETE'])
+def booking_api():
+    if request.method == 'GET':
+        try:
+            if not session['user_signin']:
+                result = {'error': True,'message' :'未登入系統，拒絕存取'}
+                return jsonify(result),403 
+            attraction_id = session['attraction_id']
+            date = session['date']
+            time = session['time']
+            price = session['price']
+            if not attraction_id or not date or not time or not price:
+                result = {'data':None}
+                return jsonify(result),200
+            connection = pymysql.connect(host='127.0.0.1',user='root',password='Becky1qaz@WSX',database='TAdb')
+            cursor = connection.cursor()
+            cursor.execute(f"SELECT * FROM attractions WHERE id={attraction_id};")
+            filter_result = cursor.fetchone()
+            name = filter_result[1]
+            address = filter_result[4]
+            image = filter_result[9].split(',')[0]
+            result = {
+                "data": {
+                    "attraction": {
+                        "id": attraction_id,
+                        "name": name,
+                        "address": address,
+                        "image": image
+                        }
+                        },
+                "date": date,
+                "time": time,
+                "price": price
+            }
+            print('booking info',result)
+            return jsonify(result),200
+        except Exception as e:
+            print('get booking error',e)
+            result = {'error': True,'message' :'伺服器錯誤'} #傳過去會是json字串
+            return jsonify(result),500 
+
+    elif request.method=='POST':
+        try:
+            if not session['user_signin']:
+                result = {'error': True,'message' :'未登入系統，拒絕存取'}
+                return jsonify(result),403 
+            attraction_id = request.form['attraction_id']
+            date = request.form['date']
+            time = request.form['time']
+            price = request.form['price']
+            if not attraction_id or not date or not time or not price:
+                result = {'error': True,'message' :'建立失敗，輸入不正確或其他原因'}
+                return jsonify(result),400
+            session['attraction_id'] = attraction_id
+            session['date'] = date
+            session['time'] = time
+            session['price'] = price
+            result = {"ok": True}
+            return jsonify(result),200
+        except Exception as e:
+            print('post booking error',e)
+            result = {'error': True,'message' :'伺服器錯誤'} #傳過去會是json字串
+            return jsonify(result),500 
+
+    elif request.method == 'DELETE':
+        try:
+            if not session['user_signin']:
+                result = {'error': True,'message' :'未登入系統，拒絕存取'}
+                return jsonify(result),403 
+            session['attraction_id'] = None
+            session['date'] = None
+            session['time'] = None
+            session['price'] = None
+            result = {"ok": True}
+            return jsonify(result),200
+        except Exception as e:
+            print('delete booking error',e)
+            result = {'error': True,'message' :'伺服器錯誤'} #傳過去會是json字串
+            return jsonify(result),500
+
 
 
 

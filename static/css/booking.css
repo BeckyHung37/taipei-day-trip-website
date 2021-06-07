@@ -1,0 +1,457 @@
+/* booking css */
+/* --------------------reset css-------------------- */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+body {
+	line-height: 1;
+	color: black;
+	background: white;
+}
+ol, ul {
+	list-style: none;
+}
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: "";
+}
+blockquote, q {
+	quotes: "" "";
+}
+/* --------------------reset css-------------------- */
+
+/* 全域變數  */
+*{
+    box-sizing: border-box;
+}
+/* 全域變數  */
+
+/* ----------------------fonts---------------------- */
+@font-face{
+    font-family: "NotoSansCJKtc-Regular";
+    src: url("/static/fonts/NotoSansCJKtc-Regular.otf") format("opentype"),
+         url("/static/fonts/NotoSansCJKtc-Regular.ttf") format("truetype");
+}
+@font-face{
+    font-family: "NotoSansCTKtc-Bold";
+    src: url("/static/fonts/NotoSansCJKtc-Bold.otf") format("opentype"),
+         url("/static/fonts/NotoSansCJKtc-Bold.ttf") format("truetype");
+}
+@font-face{
+    font-family: "NotoSansCJKtc-Medium";
+    src: url("/static/fonts/NotoSansCJKtc-Medium.otf") format("opentype");
+}
+/* ----------------------fonts---------------------- */
+body{
+    font-size:16px;
+}
+.header{
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #E8E8E8;
+    height: 54px;
+    width: 100%;
+    position: sticky;
+    top:0;
+    z-index: 1;
+}
+.containerHeader{
+    max-width: 1200px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: auto;
+    display: flex;
+    margin: 0px auto;
+    display: flex;
+    justify-content: space-between;
+}
+.logo{
+    font-family: "NotoSansCJKtc-Medium";
+    font-size: 30px;
+    color: #448899;
+    line-height: 54px;
+}
+li{
+    font-family: "NotoSansCJKtc-Regular";
+    font-size: 16px;
+    color: #666666;
+    list-style-type: none;
+    float: left;
+    padding-right: 8px;
+    padding-left: 8px;
+}
+a{
+    text-decoration: none;
+    color:#666666;
+    line-height: 54px;
+}
+.dialogSignin{
+    position: fixed;
+    top:80px;
+    left: 50%;
+    transform: translate(-170px, 0px);
+    width: 340px;
+    /* height: 275px; */
+    background: #FFFFFF;
+    box-shadow: 0px 4px 60px #AAAAAA;
+    border-radius: 6px;
+    z-index: 2;
+    /* 為了讓input框置中(margin: 0 auto;) */
+    text-align: center;
+    display: none;
+}
+.dialogSignup{
+    position: fixed;
+    top:80px;
+    left: 50%;
+    transform: translate(-170px, 0px);
+    width: 340px;
+    /* height: 332px; */
+    background: #FFFFFF;
+    box-shadow: 0px 4px 60px #AAAAAA;
+    border-radius: 6px;
+    z-index: 2;
+    /* 為了讓input框置中(margin: 0 auto;) */
+    text-align: center;
+    display: none;
+}
+.dialogTop{
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(270deg, #337788 0%, #66AABB 100%);
+    border-radius:6px 6px 0 0;
+}
+h3{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-family: "NotoSansCJKtc-Medium";
+    font-size: 24px;
+    line-height: 24px;
+    text-align: center;
+    color: #666;
+}
+.icn_close{
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 27px;
+    right: 16px;
+    cursor: pointer;
+}
+.signInInput{
+    width: 310px;
+    height: 47px;
+    margin: 0 auto;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    cursor: text;
+    padding-left: 15px;
+    margin-bottom: 10px;
+}
+.btn_signIn{
+    width: 310px;
+    height: 47px;
+    color: #ffffff;
+    font-family: "NotoSansCJKtc-Regular";
+    font-size: 19px;
+    text-align: center;
+    line-height: 47px;
+    background: #448899;
+    border-radius: 5px;
+    border: 0 none;
+    cursor:pointer;
+    margin-bottom: 15px;
+}
+.btn_singInText{
+    font-size: 16px;
+    font-family: "NotoSansCJKtc-Regular";
+    /* display: flex;
+    align-items: center; */
+    text-align: center;
+    color: #666666;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.errorMsg{
+    font-size: 12px;
+    font-family: "NotoSansCJKtc-Regular";
+    text-align: center;
+    color: red;
+    margin-bottom: 15px;
+    display: none;
+}
+.successedMsg{
+    font-size: 12px;
+    font-family: "NotoSansCJKtc-Regular";
+    text-align: center;
+    color:green;
+    margin-bottom: 15px;
+    display: none;
+}
+.mask{
+    position:fixed;
+    top     : 0;
+    left    : 0;
+    bottom  : 0;
+    right   : 0;
+    background:#000;
+    opacity:30%;
+    z-index: 1;
+    display: none;
+}
+footer{
+    height: 104px;
+    width:100%;
+    background: #757575;
+    color: #FFFFFF;
+    font-size: 16px;
+    text-align: center;
+    line-height: 104px;
+}
+
+/* ----------------------new css---------------------- */
+.welcomeUser{
+    height: auto;
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    padding-top: 44px;
+    padding-left: 60px;
+}
+.titleBox{
+    height: auto;
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    padding-top: 44px;
+    padding-left: 80px;
+}
+.bookingInfo{
+    width: 1200px;
+    height: auto;
+    border-bottom: 1px solid #E8E8E8;
+    margin: 0 auto;
+    padding-left: 80px;
+    margin-top: 35px;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 40px;
+    position: relative;
+}
+.infoTitle{
+    font-family: "NotoSansCJKtc-Bold";
+    font-size: 19px;
+    color: #666666;
+}
+.imgSelf{
+    width: 100%;
+}
+.imgBox{
+    width: 266px;
+    height: 200px;
+}
+.infoBox{
+    width: auto;
+    height: auto;
+    margin-left: 22px;
+}
+.icnDelete{
+    position: absolute;
+    top: 5px;
+    right: 80px;
+    cursor: pointer;
+}
+.attractionTitle{
+    font-family: "NotoSansCJKtc-Bold";
+    font-size: 16px;
+    color: #448899;
+    margin-bottom: 30px;
+}
+.infoSubtitle{
+    font-family: "NotoSansCJKtc-Bold";
+    font-size: 16px;
+    color: #666666;
+}
+.warningMsgBox{
+    margin-top: 20px;
+    padding-left: 80px;
+    padding-bottom: 45px;
+}
+.content{
+    font-family: "NotoSansCJKtc-Regular";
+    font-size: 16px;
+    color: #666666;
+}
+.bookingInput{
+    width: 200px;
+    height: 38px;
+    border: 1px solid #E8E8E8;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 16px;
+    line-height:normal;
+}
+.inputBox{
+    display: flex;
+    padding-top: 15px;
+    padding-left: 80px;
+    align-items: center;
+}
+.userInfo{
+    width: 1200px;
+    height: auto;
+    border-bottom: 1px solid #E8E8E8;
+    margin: 0 auto;
+}
+.creditCardInfo{
+    width: 1200px;
+    height: auto;
+    border-bottom: 1px solid #E8E8E8;
+    margin: 0 auto;
+}
+.order{
+    width: 1200px;
+    height: 180px;
+    margin: 0 auto;
+    position: relative;
+}
+.price{
+    display:flex;
+    /* margin-top: 43px;
+    margin-bottom: 25px; */
+    position: absolute;
+    right: 80px;
+    top: 43px;
+}
+.btnOrder{
+    font-size: 19px;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: "NotoSansCTKtc-Regular";
+    background-color: #448899;
+    border:none;
+    width: 154px;
+    height: 36px;
+    border-radius: 5px;
+    /* margin-top: 25px;
+    margin-bottom: 62px; */
+    cursor: pointer; 
+    position: absolute;
+    right: 80px;
+    top: 82px;
+}
+.emptyStatus{
+    width: 1200px;
+    height: 500px;
+    margin: 0 auto;
+    padding-left: 80px;
+    line-height: 250px;
+    font-family: "NotoSansCTKtc-Regular";
+    font-size: 16px;
+    color: #666666;
+    
+}
+
+/* ----------------------rwd media query---------------------- */
+@media only screen and (max-width:500px){
+    .welcomeUser{
+        width:100%;
+        padding-top: 46px;
+        padding-left: 10px; 
+    }
+    .titleBox{
+        width:100%;
+        padding-top: 46px;
+        padding-left: 10px;
+    }
+    /* .imgSelf{
+        width: 100%;
+        height: 100%;
+    } */
+    .imgBox{
+        width:100%;
+        height: auto;
+    }
+    .bookingInfo{
+        width:100%;
+        padding-left: 10px;
+        margin-top: 7px;
+    }
+    .infoBox{
+        margin-left: 0px;
+        margin-top: 20px;
+    }
+    .icnDelete{
+        top: 450px;
+        right: 20px;
+    }
+    .userInfo{
+        width:100%;
+    }
+    .inputBox{
+        padding-left: 10px;
+    }
+    .warningMsgBox{
+        padding-left: 10px;
+    }
+    .creditCardInfo{
+        width:100%;
+    }
+    .order{
+        width:100%;
+    }
+    .emptyStatus{
+        width:100%;
+    }
+    .price{
+        right: 10px;
+    }
+    .btnOrder{
+        right: 10px;
+    }
+
+    .dialogSignin{
+        width:90%; height: auto;
+        left: 5%;
+        transform: translate(0px, 0px);
+    }
+    .signInInput{
+        width: 90%;
+    }
+    .btn_signIn{
+        width: 90%;
+    }
+    .dialogSignup{
+        width:90%; height: auto;
+        left: 5%;
+        transform: translate(0px, 0px);
+    }
+
+}

@@ -108,11 +108,10 @@ function session_check(){
     req.open('get','/api/user',true);
     req.onload = function(){
         let res = JSON.parse(req.response);
-        console.log(res['data']);
         if(res['data']!=null){
             document.getElementById("menuSignIn").innerHTML = '登出';
             document.getElementById("menuSignIn").onclick = user_signout;
-            document.getElementById("menuBooking").onclick = null;
+            document.getElementById("menuBooking").onclick = redirect_to_booking;
             console.log('why');
         }
     }
@@ -277,4 +276,89 @@ function appendDot(image){
         dot.setAttribute("onclick", "javascript:currentSlide(i);");
         document.getElementById("dotGroup").appendChild(dot);
     };
+};
+
+function post_booking(){
+    let req = new XMLHttpRequest; //跟flask連線用的物件（起request用）
+    let formData = new FormData;
+    let date = document.getElementById('datePicker').value
+    let time = get_select_time();
+    let price = get_price();
+    formData.append('attraction_id',pageId)
+    formData.append('date',date)
+    formData.append('time',time)
+    formData.append('price',price)
+    req.open('post','/api/booking',true);
+    req.onload = function(){
+        let res = JSON.parse(req.response);
+        if(res['ok']==true){
+            redirect_to_booking();
+        }
+        else{
+            alert(res['messafe'])
+        }
+    }
+    req.send(formData);
+};
+
+
+function redirect_to_booking(){
+    window.location.href = '/booking'
+};
+
+function get_select_time(){
+    if (document.getElementById('morning').checked){
+        return 'morning'
+    }
+    else{return 'afternoon'}
+};
+function get_price(){
+    let feeText = document.getElementById('Fee').textContent;
+    let fee = feeText.replace('新台幣','').replace('元','');
+    return fee
+}
+
+function booking_check(){
+    let req = new XMLHttpRequest; //跟flask連線用的物件（起request用）
+    req.open('get','/api/booking',true); //前端打request到後端
+    req.onload = function(){ //接收到後端傳來的訊息，才會onload
+        let res = JSON.parse(req.response);
+        console.log(res['data']);
+        if(res['data']==''){
+            booking_delete()
+        }
+    }
+    req.send();
+}
+
+function booking_delete(){
+    let req = new XMLHttpRequest; //跟flask連線用的物件（起request用）
+    // let formData = new FormData;
+    let bookingInfo = document.querySelector('#bookingInfo');
+    let titleUserInfo = document.querySelector('#titleUserInfo');
+    let userInfo = document.querySelector('#userInfo');
+    let titleCreditCard = document.querySelector('#titleCreditCard');
+    let creditCardInfo = document.querySelector('#creditCardInfo');
+    let order = document.querySelector('#order');
+    req.open('delete','/api/booking',true); //前端打request到後端
+    req.onload = function(){ //接收到後端傳來的訊息，才會onload
+        let res = JSON.parse(req.response);
+        if(res['error']!=true){
+            alert('hiiiii');
+            bookingInfo.remove();
+            titleUserInfo.remove();
+            userInfo.remove();
+            titleCreditCard.remove();
+            creditCardInfo.remove();
+            order.remove();
+            let emptyStatus = document.createElement("div");
+            let msg = '目前沒有任何待預訂的行程'
+            let emptyMessage = document.createTextNode(msg);
+            emptyStatus.appendChild(emptyMessage);
+            emptyStatus.setAttribute('class','emptyStatus');
+            document.getElementById('empty').appendChild(emptyStatus);
+
+        }
+    }
+    req.send();
 };
