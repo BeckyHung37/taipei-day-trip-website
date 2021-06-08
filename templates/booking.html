@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>
+        taipei-day-trip-website-booking
+    </title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/booking.css')}}">
+</head>
+<body>
+    <div class="header" id="header">
+        <div class="containerHeader">
+            <div class="logo">
+                <a class="logo" href="/">台北一日遊</a>
+            </div>
+            <ul class="menu">
+                <li><a href="#" onclick="showDialogSignIn();showMask();" id="menuBooking">預定行程</a></li>
+                <li><a href="#" onclick="showDialogSignIn();showMask();" id="menuSignIn">登入/註冊</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="dialogSignin" id="dialogSignin">
+        <div class="dialogTop"></div>
+        <h3>登入會員帳號</h3>
+        <img src="/static/icons/icon_close.png" class="icn_close" onclick="hideDialogSignIn();hideMask();cleanInput();hideMsgSignUp();hideMsgSignIn();">
+        <input type="text" placeholder="輸入電子信箱" class="signInInput" id="signInEmail">
+        <input type="password" placeholder="輸入密碼" class="signInInput" id="signInPwd">
+        <button type="submit" class="btn_signIn" onclick="user_signin();">登入帳戶</button>
+        <p class="errorMsg" id="errorMsgSignIn"></p>
+        <p class="successedMsg" id="successedMsgSignIn">登入成功！</p>
+        <p class="btn_singInText" onclick="showDialogSignUp();hideDialogSignIn();showMask();cleanInput();hideMsgSignUp();hideMsgSignIn();">還沒有帳戶？點此註冊</p>
+    </div>
+    <div class="dialogSignup" id="dialogSignup">
+        <div class="dialogTop"></div>
+        <h3>註冊會員帳號</h3>
+        <img src="/static/icons/icon_close.png" class="icn_close" onclick="hideDialogSignUp();hideMask();cleanInput();hideMsgSignUp();hideMsgSignIn();">
+        <input type="text" placeholder="輸入姓名" class="signInInput" id="signUpName">
+        <input type="text" placeholder="輸入電子信箱" class="signInInput" id="signUpEmail">
+        <input type="password" placeholder="輸入密碼" class="signInInput" id="signUpPwd">
+        <button type="submit" class="btn_signIn" onclick="user_signup();">註冊新帳戶</button>
+        <p class="errorMsg" id="errorMsgSignUp"></p>
+        <p class="successedMsg" id="successedMsgSignUp">恭喜您！註冊成功</p>
+        <p class="btn_singInText" onclick="showDialogSignIn();hideDialogSignUp();cleanInput();hideMsgSignUp();hideMsgSignIn();">已經有帳戶了？點此登入</p>
+    </div>
+    <div class="mask" id="mask"></div>
+    <div class="titleBox" id="welcomeUser">
+        <div class="infoTitle">您好，</div>
+        <div class="infoTitle" id="userName">Yakko</div>
+        <div class="infoTitle">，待預定的行程如下：</div>
+    </div>
+    <div id="empty"></div>
+    <div class="bookingInfo" id="bookingInfo">
+        <div class="imgBox" id="imgBox"></div>
+        <div class="infoBox">
+            <div style="display: flex;">
+                <div class="attractionTitle">台北一日遊：</div>
+                <div class="attractionTitle" id="attractionNameId">平安鐘</div>
+            </div>
+            <div style="display: flex;">
+                <div class="infoSubtitle">日期：</div>
+                <div class="content" id="scheduleDate">2021-04-23</div>
+            </div>
+            <div style="display: flex;margin-top: 20px;">
+                <div class="infoSubtitle">時間：</div>
+                <div class="content" id="scheduleTime">早上9點到下午4點</div>
+            </div>
+            <div style="display: flex;margin-top: 20px;">
+                <div class="infoSubtitle">費用：</div>
+                <div class="content" >新台幣</div>
+                <div class="content" id="schedulePrice">2000</div>
+                <div class="content" >元</div>
+            </div>
+            <div style="display: flex;margin-top: 20px;">
+                <div class="infoSubtitle">地點：</div>
+                <div class="content" id="attractionAddress">臺北市 大安區忠孝東路4段</div>
+            </div>
+            <img src="/static/icons/icon_delete.png" class="icnDelete" onclick="booking_delete()">
+        </div>
+    </div>
+    <div class="titleBox" style="margin-bottom: 9px;" id="titleUserInfo">
+        <div class="infoTitle">您的聯絡資訊</div>
+    </div>
+    <div class="userInfo" id="userInfo">
+        <div class="inputBox">
+            <div class="content">聯絡姓名：</div>
+            <input type="text" placeholder="請輸入聯絡姓名" class="bookingInput">
+        </div>
+        <div class="inputBox">
+            <div class="content">聯絡信箱：</div>
+            <input type="text" placeholder="請輸入聯絡信箱" class="bookingInput">
+        </div>
+        <div class="inputBox">
+            <div class="content">手機號碼：</div>
+            <input type="text" placeholder="請輸入手機號碼" class="bookingInput">
+        </div>
+        <div class="warningMsgBox">
+            <div class="infoSubtitle">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
+        </div>
+    </div>
+    <div class="titleBox" style="margin-bottom: 9px;" id="titleCreditCard">
+        <div class="infoTitle">信用卡付款資訊</div>
+    </div>
+    <div class="creditCardInfo" id="creditCardInfo">
+        <div class="inputBox">
+            <div class="content">卡片號碼：</div>
+            <input type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx" class="bookingInput">
+        </div>
+        <div class="inputBox">
+            <div class="content">過期時間：</div>
+            <input type="date" placeholder="MM/YY" class="bookingInput">
+        </div>
+        <div class="inputBox">
+            <div class="content">驗證密碼：</div>
+            <input type="password" placeholder="CVV" class="bookingInput">
+        </div>
+        <div style="margin-top: 20px; padding-left: 80px;padding-bottom: 45px;"></div>
+    </div>
+    <div class="order" id="order">
+        <div class="price">
+            <div class="infoSubtitle">總價：新台幣</div>
+            <div class="infoSubtitle" id="scheduleTotalPrice">2000</div>
+            <div class="infoSubtitle">元</div>
+        </div>
+        <button class="btnOrder">確定訂購並付款</button>
+    </div>
+    <footer id="footer">
+        COPYRIGHT © 2021 台北一日遊
+    </footer>
+</body>
+    <script type="text/javascript" src="/static/js/booking.js"></script>
+</html>

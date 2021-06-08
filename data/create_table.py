@@ -21,6 +21,6 @@ cursor=TAdb.cursor() #為了執行CRUD操作
 #--------------------------------------------------------
 
 #---------------  table for user  ---------------------------------
-cursor.execute('CREATE TABLE users (id INTEGER AUTO_INCREMENT PRIMARY Key,\
-                name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL)')
+# cursor.execute('CREATE TABLE users (id INTEGER AUTO_INCREMENT PRIMARY Key,\
+#                 name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL)')
 #--------------------------------------------------------
