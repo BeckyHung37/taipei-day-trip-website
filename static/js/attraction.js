@@ -295,7 +295,7 @@ function post_booking(){
             redirect_to_booking();
         }
         else{
-            alert(res['messafe'])
+            alert(res['請填妥預定資訊'])
         }
     }
     req.send(formData);

@@ -1,6 +1,8 @@
 from flask import * #把flask所有功能import進來
 import pymysql
 import json
+import requests
+import hashlib
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
@@ -271,6 +273,147 @@ def booking_api():
             print('delete booking error',e)
             result = {'error': True,'message' :'伺服器錯誤'} #傳過去會是json字串
             return jsonify(result),500
+
+@app.route("/api/orders", methods=['POST'])
+def order_api():
+    if request.method == 'POST':
+        if not session['user_signin']:
+            result = {'error': True,'message' :'未登入系統，拒絕存取'}
+            return jsonify(result),403
+        try: 
+            request_body = request.get_json(force=True)   
+            prime = request_body['prime']
+            price = request_body['order']['price']
+            attraction_id = request_body['order']['trip']['attraction']['id']
+            attraction_name = request_body['order']['trip']['attraction']['name']
+            attraction_address = request_body['order']['trip']['attraction']['address']
+            attraction_image = request_body['order']['trip']['attraction']['image']
+            date = request_body['order']['trip']['date']
+            time = request_body['order']['trip']['time']
+            contact_email = request_body['order']['contact']['email']
+            contact_name = request_body['order']['contact']['name']
+            contact_phone = request_body['order']['contact']['phone']
+            m = hashlib.md5()
+            m.update((contact_email+date+time).encode("utf-8"))
+            order_code = m.hexdigest()
+            connection = pymysql.connect(
+                    host='127.0.0.1',
+                    user='root',
+                    password='Becky1qaz@WSX',
+                    database='TAdb')
+            cursor = connection.cursor()
+            try:
+                cursor.execute(f"INSERT INTO orders(price, attraction_id, attraction_name, attraction_address,attraction_image,date,time,contact_email,contact_name,contact_phone,payment,order_code) \
+                            VALUES ('{price}', '{attraction_id}', '{attraction_name}', '{attraction_address}','{attraction_image}','{date}','{time}','{contact_email}','{contact_name}','{contact_phone}','False','{order_code}');")
+                connection.commit()
+            except:
+                result = {
+                "error": True,
+                "message": "訂單建立失敗，輸入不正確或其他原因"
+                }
+                return jsonify(result),400
+            url = 'https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime'
+            data = {
+                    "prime": prime,
+                    "partner_key": "partner_vx666d8CW3NUodrH15jkbOUx6npaE8f14K9KrzhoOGzw4WqCipbcox2A",
+                    "merchant_id": "beckyhung37_TAISHIN",
+                    "details":"TapPay Test",
+                    "amount": int(price),
+                    "cardholder": {
+                        "phone_number": contact_phone,
+                        "name": contact_name,
+                        "email": contact_email,
+                    },
+                    "remember": True
+                    }        
+            response = requests.post(url, json=data,headers={"content-type":"application/json","x-api-key":"partner_vx666d8CW3NUodrH15jkbOUx6npaE8f14K9KrzhoOGzw4WqCipbcox2A"})
+            print('successful get response')
+            print('tappay api return',response.json())
+            if response.json()['status'] == 0:
+                cursor.execute(f"UPDATE orders SET payment='True' WHERE order_code='{order_code}';")
+                connection.commit()
+                result = {
+                "data": {
+                    "number": order_code,
+                    "payment": {
+                    "status": response.json()['status'],
+                    "message": "付款成功"}
+                        }
+                }
+                return jsonify(result),200
+            else:
+                result = {
+                "data": {
+                    "number": order_code,
+                    "payment": {
+                    "status": response.json()['status'],
+                    "message": "付款成功"}
+                        }
+                }
+                return jsonify(result),200
+        except Exception as e:
+            print(e)
+            result = {'error': True,'message' :'伺服器錯誤'} #傳過去會是json字串
+            return jsonify(result),500
+
+@app.route("/api/order/<orderNumber>", methods=['GET'])
+def order_api_by_order_code(orderNumber):
+    if request.method == 'GET':
+        if not session['user_signin']:
+            result = {'error': True,'message' :'未登入系統，拒絕存取'}
+            return jsonify(result),403
+        connection = pymysql.connect(host='127.0.0.1',user='root',password='Becky1qaz@WSX',database='TAdb')
+        cursor = connection.cursor()
+        cursor.execute(f"SELECT * FROM orders WHERE order_code={orderNumber};")
+        filter_result = cursor.fetchone()
+        price = filter_result[1]
+        attraction_id = filter_result[2]
+        attraction_name = filter_result[3]
+        attraction_address = filter_result[4]
+        attraction_image = filter_result[5]
+        date = filter_result[6]
+        time = filter_result[7]
+        contact_email = filter_result[8]
+        contact_name = filter_result[9]
+        contact_phone = filter_result[10]
+        payment = filter_result[11]
+        order_code = filter_result[12]
+        result = {
+        "data": {
+            "number": order_code,
+            "price": int(price),
+            "trip": {
+            "attraction": {
+                "id": attraction_id,
+                "name": attraction_name,
+                "address": attraction_address,
+                "image": attraction_image
+            },
+            "date": date,
+            "time": time
+            },
+            "contact": {
+            "name": contact_name,
+            "email": contact_email,
+            "phone": contact_phone
+            },
+            "status": 1
+            }
+        }
+        return jsonify(result),200
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

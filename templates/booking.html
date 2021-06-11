@@ -7,6 +7,8 @@
         taipei-day-trip-website-booking
     </title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/booking.css')}}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="header" id="header">
@@ -50,6 +52,7 @@
         <div class="infoTitle">，待預定的行程如下：</div>
     </div>
     <div id="empty"></div>
+    <div class="attractionIdBox" id="attractionIdBox"></div>
     <div class="bookingInfo" id="bookingInfo">
         <div class="imgBox" id="imgBox"></div>
         <div class="infoBox">
@@ -78,55 +81,57 @@
             <img src="/static/icons/icon_delete.png" class="icnDelete" onclick="booking_delete()">
         </div>
     </div>
-    <div class="titleBox" style="margin-bottom: 9px;" id="titleUserInfo">
-        <div class="infoTitle">您的聯絡資訊</div>
-    </div>
-    <div class="userInfo" id="userInfo">
-        <div class="inputBox">
-            <div class="content">聯絡姓名：</div>
-            <input type="text" placeholder="請輸入聯絡姓名" class="bookingInput">
+    <form action="">
+        <div class="titleBox" style="margin-bottom: 9px;" id="titleUserInfo">
+            <div class="infoTitle">您的聯絡資訊</div>
         </div>
-        <div class="inputBox">
-            <div class="content">聯絡信箱：</div>
-            <input type="text" placeholder="請輸入聯絡信箱" class="bookingInput">
+        <div class="userInfo" id="userInfo">
+            <div class="inputBox">
+                <div class="content">聯絡姓名：</div>
+                <input type="text" placeholder="請輸入聯絡姓名" class="bookingInput" id="contactName">
+            </div>
+            <div class="inputBox">
+                <div class="content">聯絡信箱：</div>
+                <input type="text" placeholder="請輸入聯絡信箱" class="bookingInput" id="contactEmail">
+            </div>
+            <div class="inputBox">
+                <div class="content">手機號碼：</div>
+                <input type="text" placeholder="請輸入手機號碼" class="bookingInput" id="contactNumber">
+            </div>
+            <div class="warningMsgBox">
+                <div class="infoSubtitle">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
+            </div>
         </div>
-        <div class="inputBox">
-            <div class="content">手機號碼：</div>
-            <input type="text" placeholder="請輸入手機號碼" class="bookingInput">
+        <div class="titleBox" style="margin-bottom: 9px;" id="titleCreditCard">
+            <div class="infoTitle">信用卡付款資訊</div>
         </div>
-        <div class="warningMsgBox">
-            <div class="infoSubtitle">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
+        <div class="creditCardInfo" id="creditCardInfo">
+            <div class="inputBox">
+                <div class="content" >卡片號碼：</div>
+                <div class="tpfield" id="card-number"></div>
+            </div>
+            <div class="inputBox">
+                <div class="content">過期時間：</div>
+                <div class="tpfield" id="card-expiration-date"></div>
+            </div> 
+            <div class="inputBox" style="margin-bottom: 40px;">
+                <div class="content">驗證密碼：</div>
+                <div class="tpfield" id="card-ccv"></div>
+            </div> 
         </div>
-    </div>
-    <div class="titleBox" style="margin-bottom: 9px;" id="titleCreditCard">
-        <div class="infoTitle">信用卡付款資訊</div>
-    </div>
-    <div class="creditCardInfo" id="creditCardInfo">
-        <div class="inputBox">
-            <div class="content">卡片號碼：</div>
-            <input type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx" class="bookingInput">
+        <div class="order" id="order">
+            <div class="price">
+                <div class="infoSubtitle">總價：新台幣</div>
+                <div class="infoSubtitle" id="scheduleTotalPrice">2000</div>
+                <div class="infoSubtitle">元</div>
+            </div>
+            <button class="btnOrder" type="submit" value="submit" onclick="onSubmit(event);">確定訂購並付款</button>
         </div>
-        <div class="inputBox">
-            <div class="content">過期時間：</div>
-            <input type="date" placeholder="MM/YY" class="bookingInput">
-        </div>
-        <div class="inputBox">
-            <div class="content">驗證密碼：</div>
-            <input type="password" placeholder="CVV" class="bookingInput">
-        </div>
-        <div style="margin-top: 20px; padding-left: 80px;padding-bottom: 45px;"></div>
-    </div>
-    <div class="order" id="order">
-        <div class="price">
-            <div class="infoSubtitle">總價：新台幣</div>
-            <div class="infoSubtitle" id="scheduleTotalPrice">2000</div>
-            <div class="infoSubtitle">元</div>
-        </div>
-        <button class="btnOrder">確定訂購並付款</button>
-    </div>
+    </form>
     <footer id="footer">
         COPYRIGHT © 2021 台北一日遊
     </footer>
 </body>
     <script type="text/javascript" src="/static/js/booking.js"></script>
+    <script src="https://js.tappaysdk.com/tpdirect/v5.7.0"></script>
 </html>
