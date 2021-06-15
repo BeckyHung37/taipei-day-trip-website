@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>
+        taipei-day-trip-website-booking
+    </title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/thankyou.css')}}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header" id="header">
+        <div class="containerHeader">
+            <div class="logo">
+                <a class="logo" href="/">台北一日遊</a>
+            </div>
+            <ul class="menu">
+                <li><a href="#" onclick="showDialogSignIn();showMask();" id="menuBooking">預定行程</a></li>
+                <li><a href="#" onclick="showDialogSignIn();showMask();" id="menuSignIn">登入/註冊</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="dialogSignin" id="dialogSignin">
+        <div class="dialogTop"></div>
+        <h3>登入會員帳號</h3>
+        <img src="/static/icons/icon_close.png" class="icn_close" onclick="hideDialogSignIn();hideMask();cleanInput();hideMsgSignUp();hideMsgSignIn();">
+        <input type="text" placeholder="輸入電子信箱" class="signInInput" id="signInEmail">
+        <input type="password" placeholder="輸入密碼" class="signInInput" id="signInPwd">
+        <button type="submit" class="btn_signIn" onclick="user_signin();">登入帳戶</button>
+        <p class="errorMsg" id="errorMsgSignIn"></p>
+        <p class="successedMsg" id="successedMsgSignIn">登入成功！</p>
+        <p class="btn_singInText" onclick="showDialogSignUp();hideDialogSignIn();showMask();cleanInput();hideMsgSignUp();hideMsgSignIn();">還沒有帳戶？點此註冊</p>
+    </div>
+    <div class="dialogSignup" id="dialogSignup">
+        <div class="dialogTop"></div>
+        <h3>註冊會員帳號</h3>
+        <img src="/static/icons/icon_close.png" class="icn_close" onclick="hideDialogSignUp();hideMask();cleanInput();hideMsgSignUp();hideMsgSignIn();">
+        <input type="text" placeholder="輸入姓名" class="signInInput" id="signUpName">
+        <input type="text" placeholder="輸入電子信箱" class="signInInput" id="signUpEmail">
+        <input type="password" placeholder="輸入密碼" class="signInInput" id="signUpPwd">
+        <button type="submit" class="btn_signIn" onclick="user_signup();">註冊新帳戶</button>
+        <p class="errorMsg" id="errorMsgSignUp"></p>
+        <p class="successedMsg" id="successedMsgSignUp">恭喜您！註冊成功</p>
+        <p class="btn_singInText" onclick="showDialogSignIn();hideDialogSignUp();cleanInput();hideMsgSignUp();hideMsgSignIn();">已經有帳戶了？點此登入</p>
+    </div>
+    
+    <div class="mask" id="mask"></div>
+    <div class="titleBox" id="welcomeUser">
+        <div class="infoTitle">感謝您的訂購！您的訂單編號為：</div>
+        <div class="orderCode" id="orderCodeBox"></div>
+    </div>
+    <div class="thankYouWord">您的訂單已經成功提交，我們將會在第一時間進行處理！再次感謝您提供我們為您服務的機會。</div>
+
+
+    <footer id="footer">
+        COPYRIGHT © 2021 台北一日遊
+    </footer>
+</body>
+    <script type="text/javascript" src="/static/js/thankyou.js"></script>
+    <script src="https://js.tappaysdk.com/tpdirect/v5.7.0"></script>
+</html>

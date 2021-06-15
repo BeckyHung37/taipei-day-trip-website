@@ -1,0 +1,256 @@
+/* booking css */
+/* --------------------reset css-------------------- */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+body {
+	line-height: 1;
+	color: black;
+	background: white;
+}
+ol, ul {
+	list-style: none;
+}
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: "";
+}
+blockquote, q {
+	quotes: "" "";
+}
+/* --------------------reset css-------------------- */
+
+/* 全域變數  */
+*{
+    box-sizing: border-box;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+/* 全域變數  */
+
+
+body{
+    font-size:16px;
+}
+.header{
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #E8E8E8;
+    height: 54px;
+    width: 100%;
+    position: sticky;
+    top:0;
+    z-index: 1;
+}
+.containerHeader{
+    max-width: 1200px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: auto;
+    display: flex;
+    margin: 0px auto;
+    display: flex;
+    justify-content: space-between;
+}
+.logo{
+    font-weight: 700;
+    font-size: 30px;
+    color: #448899;
+    line-height: 54px;
+}
+li{
+    font-weight: 400;
+    font-size: 16px;
+    color: #666666;
+    list-style-type: none;
+    float: left;
+    padding-right: 8px;
+    padding-left: 8px;
+}
+a{
+    text-decoration: none;
+    color:#666666;
+    line-height: 54px;
+}
+.dialogSignin{
+    position: fixed;
+    top:80px;
+    left: 50%;
+    transform: translate(-170px, 0px);
+    width: 340px;
+    /* height: 275px; */
+    background: #FFFFFF;
+    box-shadow: 0px 4px 60px #AAAAAA;
+    border-radius: 6px;
+    z-index: 2;
+    /* 為了讓input框置中(margin: 0 auto;) */
+    text-align: center;
+    display: none;
+}
+.dialogSignup{
+    position: fixed;
+    top:80px;
+    left: 50%;
+    transform: translate(-170px, 0px);
+    width: 340px;
+    /* height: 332px; */
+    background: #FFFFFF;
+    box-shadow: 0px 4px 60px #AAAAAA;
+    border-radius: 6px;
+    z-index: 2;
+    /* 為了讓input框置中(margin: 0 auto;) */
+    text-align: center;
+    display: none;
+}
+.dialogTop{
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(270deg, #337788 0%, #66AABB 100%);
+    border-radius:6px 6px 0 0;
+}
+h3{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 24px;
+    text-align: center;
+    color: #666;
+}
+.icn_close{
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 27px;
+    right: 16px;
+    cursor: pointer;
+}
+.signInInput{
+    width: 310px;
+    height: 47px;
+    margin: 0 auto;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    cursor: text;
+    padding-left: 15px;
+    margin-bottom: 10px;
+}
+.btn_signIn{
+    width: 310px;
+    height: 47px;
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 19px;
+    text-align: center;
+    line-height: 47px;
+    background: #448899;
+    border-radius: 5px;
+    border: 0 none;
+    cursor:pointer;
+    margin-bottom: 15px;
+}
+.btn_singInText{
+    font-size: 16px;
+    font-weight: 400;
+    /* display: flex;
+    align-items: center; */
+    text-align: center;
+    color: #666666;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.errorMsg{
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+    color: red;
+    margin-bottom: 15px;
+    display: none;
+}
+.successedMsg{
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+    color:green;
+    margin-bottom: 15px;
+    display: none;
+}
+.mask{
+    position:fixed;
+    top     : 0;
+    left    : 0;
+    bottom  : 0;
+    right   : 0;
+    background:#000;
+    opacity:30%;
+    z-index: 1;
+    display: none;
+}
+footer{
+    height: 104px;
+    width:100%;
+    background: #757575;
+    color: #FFFFFF;
+    font-size: 16px;
+    text-align: center;
+    line-height: 104px;
+}
+.attractionIdBox{
+    display: none;
+}
+/* ----------------------new css---------------------- */
+.titleBox{
+    height: auto;
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    padding-top: 44px;
+    padding-left: 80px;
+}
+.infoTitle{
+    font-weight: 700;
+    font-size: 19px;
+    color: #666666;
+}
+.orderCode{
+    font-weight: 700;
+    font-size: 19px;
+    color:  #448899;
+}
+.thankYouWord{
+    height: 200px;
+    width: 1200px;
+    margin: 0 auto;
+    padding-top: 44px;
+    padding-left: 80px;
+    font-size: 16px;
+    font-weight: 400;
+    color:  #666666;
+    line-height: 100px;
+}

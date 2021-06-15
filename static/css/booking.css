@@ -51,25 +51,11 @@ blockquote, q {
 /* 全域變數  */
 *{
     box-sizing: border-box;
+    font-family: 'Noto Sans TC', sans-serif;
 }
 /* 全域變數  */
 
-/* ----------------------fonts---------------------- */
-@font-face{
-    font-family: "NotoSansCJKtc-Regular";
-    src: url("/static/fonts/NotoSansCJKtc-Regular.otf") format("opentype"),
-         url("/static/fonts/NotoSansCJKtc-Regular.ttf") format("truetype");
-}
-@font-face{
-    font-family: "NotoSansCTKtc-Bold";
-    src: url("/static/fonts/NotoSansCJKtc-Bold.otf") format("opentype"),
-         url("/static/fonts/NotoSansCJKtc-Bold.ttf") format("truetype");
-}
-@font-face{
-    font-family: "NotoSansCJKtc-Medium";
-    src: url("/static/fonts/NotoSansCJKtc-Medium.otf") format("opentype");
-}
-/* ----------------------fonts---------------------- */
+
 body{
     font-size:16px;
 }
@@ -93,13 +79,13 @@ body{
     justify-content: space-between;
 }
 .logo{
-    font-family: "NotoSansCJKtc-Medium";
+    font-weight: 700;
     font-size: 30px;
     color: #448899;
     line-height: 54px;
 }
 li{
-    font-family: "NotoSansCJKtc-Regular";
+    font-weight: 400;
     font-size: 16px;
     color: #666666;
     list-style-type: none;
@@ -151,7 +137,7 @@ a{
 h3{
     padding-top: 15px;
     padding-bottom: 15px;
-    font-family: "NotoSansCJKtc-Medium";
+    font-weight: 700;
     font-size: 24px;
     line-height: 24px;
     text-align: center;
@@ -179,7 +165,7 @@ h3{
     width: 310px;
     height: 47px;
     color: #ffffff;
-    font-family: "NotoSansCJKtc-Regular";
+    font-weight: 400;
     font-size: 19px;
     text-align: center;
     line-height: 47px;
@@ -191,7 +177,7 @@ h3{
 }
 .btn_singInText{
     font-size: 16px;
-    font-family: "NotoSansCJKtc-Regular";
+    font-weight: 400;
     /* display: flex;
     align-items: center; */
     text-align: center;
@@ -201,7 +187,7 @@ h3{
 }
 .errorMsg{
     font-size: 12px;
-    font-family: "NotoSansCJKtc-Regular";
+    font-weight: 400;
     text-align: center;
     color: red;
     margin-bottom: 15px;
@@ -209,7 +195,7 @@ h3{
 }
 .successedMsg{
     font-size: 12px;
-    font-family: "NotoSansCJKtc-Regular";
+    font-weight: 400;
     text-align: center;
     color:green;
     margin-bottom: 15px;
@@ -235,7 +221,9 @@ footer{
     text-align: center;
     line-height: 104px;
 }
-
+.attractionIdBox{
+    display: none;
+}
 /* ----------------------new css---------------------- */
 .welcomeUser{
     height: auto;
@@ -266,7 +254,7 @@ footer{
     position: relative;
 }
 .infoTitle{
-    font-family: "NotoSansCJKtc-Bold";
+    font-weight: 700;
     font-size: 19px;
     color: #666666;
 }
@@ -289,13 +277,13 @@ footer{
     cursor: pointer;
 }
 .attractionTitle{
-    font-family: "NotoSansCJKtc-Bold";
+    font-weight: 700;
     font-size: 16px;
     color: #448899;
     margin-bottom: 30px;
 }
 .infoSubtitle{
-    font-family: "NotoSansCJKtc-Bold";
+    font-weight: 700;
     font-size: 16px;
     color: #666666;
 }
@@ -305,7 +293,7 @@ footer{
     padding-bottom: 45px;
 }
 .content{
-    font-family: "NotoSansCJKtc-Regular";
+    font-weight: 400;
     font-size: 16px;
     color: #666666;
 }
@@ -354,7 +342,7 @@ footer{
     font-size: 19px;
     color: #FFFFFF;
     text-decoration: none;
-    font-family: "NotoSansCTKtc-Regular";
+    font-weight: 400;
     background-color: #448899;
     border:none;
     width: 154px;
@@ -373,10 +361,19 @@ footer{
     margin: 0 auto;
     padding-left: 80px;
     line-height: 250px;
-    font-family: "NotoSansCTKtc-Regular";
+    font-weight: 400;
     font-size: 16px;
     color: #666666;
     
+}
+.tpfield {
+    width: 200px;
+    height: 38px;
+    border: 1px solid #E8E8E8;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 16px;
+    line-height:normal;
 }
 
 /* ----------------------rwd media query---------------------- */

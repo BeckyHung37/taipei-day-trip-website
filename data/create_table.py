@@ -24,3 +24,10 @@ cursor=TAdb.cursor() #為了執行CRUD操作
 # cursor.execute('CREATE TABLE users (id INTEGER AUTO_INCREMENT PRIMARY Key,\
 #                 name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL)')
 #--------------------------------------------------------
+
+cursor.execute('CREATE TABLE orders (id INTEGER AUTO_INCREMENT PRIMARY Key,\
+                price VARCHAR(255) NOT NULL, attraction_id VARCHAR(255) NOT NULL, attraction_name VARCHAR(255) NOT NULL,\
+                attraction_address VARCHAR(255) NOT NULL,attraction_image VARCHAR(255) NOT NULL,\
+                date VARCHAR(255) NOT NULL,time VARCHAR(255) NOT NULL,\
+                contact_email VARCHAR(255) NOT NULL,contact_name VARCHAR(255) NOT NULL,contact_phone VARCHAR(255) NOT NULL,\
+                payment VARCHAR(255) NOT NULL, order_code varchar(255))')
