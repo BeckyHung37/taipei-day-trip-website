@@ -6,7 +6,7 @@ import json
 TAdb = pymysql.connect(
     host='127.0.0.1',
     user='root',
-    password='becky1qaz2wsx',
+    password='Becky1qaz@WSX',
     database='TAdb',
 )
 cursor=TAdb.cursor() #為了執行CRUD操作
